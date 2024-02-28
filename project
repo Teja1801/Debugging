@@ -1,0 +1,40 @@
+from flask import Flask, rendertemplate, request
+
+app = Flask(name)
+
+notes = []
+@app.route('/', methods=["POST","GET"])
+def index():
+    note = request.form.get("note")
+    if note is not None and note.strip():
+        notes.append(note)
+    return rendertemplate("home.html", notes=notes)
+
+
+if name == '__main':
+    app.run(debug=True)
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    </h1>Note Taking</h1>
+    <form action=""method="post">
+        <input type="text" name="note" placeholder="Enter a note">
+        <button type="submit">Add Note</button>
+    </form>
+
+    <ul>
+    {% for note in notes if note is not none%}
+        <li>{{ note }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
